@@ -1,0 +1,21 @@
+library(DMwR)
+head(algae)
+summary(algae)
+hist(algae$mxPH,probability = TRUE)
+plot(algae$NH4,xlab = "")
+abline(h=mean(algae$NH4,na.rm = T),lty=1)
+abline(h=mean(algae$NH4,na.rm = T)+sd(algae$NH4,na.rm = T),lty=2)
+abline(h=,median(algae$NH4,na.rm = T),lty=3)
+identify(algae$NH4)
+library(car)
+qqplot(algae$mxPH,rnorm(length(algae$mxPH)))
+library(lattice)
+bwplot(size~a1,data = algae)
+?bwplot
+??beplot
+dotplot(size~a1,data = algae)
+?equal.count
+z <- equal.count(rnorm(50))
+plot(z)
+print(z)
+print(levels(z))
