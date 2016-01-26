@@ -79,3 +79,7 @@ algae<-algae[-manyNAs(algae),]
 rt.a1<-rpart(a1~.,data=algae[,1:12])
 rt.a1
 prettyTree(rt.a1)
+?prettyTree()
+printcp(rt.a1)
+lm.predictions<-predict(final.lm,clean.algae)
+rt.predictions<-predict(rt.a1,algae)
