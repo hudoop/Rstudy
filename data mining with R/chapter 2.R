@@ -53,16 +53,29 @@ histogram(~mxPH|size*speed,data = algae)
 stripplot(size~mxPH|speed,data = algae,jitter=T)
 ##########################
 ######用观测值间的想相关性填充数据
+####### 多元线性方法
+library(DMwR)
+data(algae)
+algae<-algae[-manyNAs(algae),]
+clean.algae<-knnImputation(algae,k=10)
+lm.a1<-lm(a1~.,data=clean.algae[,1:12])
+summary(lm.a1)
+plot(lm.a1)
 
-
-
-
-
-
-
-
-
-
-
-
-
+anova(lm.a1)
+lm2.a1<-update(lm.a1,.~.-season)
+summary(lm2.a1)
+anova(lm2.a1,lm.a1)
+final.lm<-step(lm.a1)
+summary(final.lm)
+#############################
+###决策树方法
+library(DMwR)
+library(rpart)
+names(algae)
+data(algae)
+str(algae)
+algae<-algae[-manyNAs(algae),]
+rt.a1<-rpart(a1~.,data=algae[,1:12])
+rt.a1
+prettyTree(rt.a1)
